@@ -9,7 +9,7 @@ const authUser = (req, res, next) => {
 
   jwt.verify(token, process.env.JWT_RANDOMISER, (err, decoded) => {
     if (err) {
-      return res.status(401).json({ message: "Bad auth (no token)" });
+      return res.status(401).json({ message: "Bad auth (bad token)" });
     }
 
     // req.body = req.body || {};
