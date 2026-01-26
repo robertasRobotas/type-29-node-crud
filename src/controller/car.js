@@ -2,7 +2,7 @@ import CarModel from "../models/car.js";
 import { v4 as uuid } from "uuid";
 
 export const getAllCars = async (req, res) => {
-  const cars = await CarModel.find();
+  const cars = await CarModel.find({ userId: req.body.userId });
 
   return res.json({ cars: cars });
 };
@@ -19,7 +19,11 @@ export const getCarById = async (req, res) => {
 };
 
 export const insertCar = async (req, res) => {
-  const car = new CarModel({ id: uuid(), ...req.body });
+  const car = new CarModel({
+    id: uuid(),
+    ...req.body,
+    userId: req.body.userId,
+  });
   await car.save();
 
   return res.status(201).json({ car: car });

@@ -6,6 +6,7 @@ const schema = mongoose.Schema({
   model: { type: String, required: true },
   year: { type: Number, required: true },
   imgUrl: { type: String, required: true },
+  userId: { type: String, required: true },
 });
 
 export default mongoose.model("Car", schema);

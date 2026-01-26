@@ -12,8 +12,8 @@ const authUser = (req, res, next) => {
       return res.status(401).json({ message: "Bad auth (bad token)" });
     }
 
-    // req.body = req.body || {};
-    // req.body.userId = decoded.userId;
+    req.body = req.body || {};
+    req.body.userId = decoded.userId;
 
     next();
   });
