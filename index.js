@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import carsRouter from "./src/router/car.js";
 import userRouter from "./src/router/user.js";
 
@@ -6,6 +7,8 @@ import mongoose from "mongoose";
 import "dotenv/config";
 
 const app = express();
+
+app.use(cors());
 
 mongoose
   .connect(process.env.MONGO_DB_CONNECTION)

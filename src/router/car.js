@@ -10,7 +10,7 @@ import auth from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/cars", auth, getAllCars);
+router.get("/cars/users/:id", auth, getAllCars);
 
 router.get("/cars/:id", auth, getCarById);
 

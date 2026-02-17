@@ -19,6 +19,8 @@ export const login = async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
+  console.log(req.body);
+
   const user = await UserModel.findOne({ email: email });
 
   if (!user) {
