@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import carsRouter from "./src/router/car.js";
+import boardgameRouter from "./src/router/boardgame.js";
 import userRouter from "./src/router/user.js";
 
 import mongoose from "mongoose";
@@ -19,7 +19,7 @@ mongoose
 
 app.use(express.json());
 
-app.use(carsRouter);
+app.use(boardgameRouter);
 app.use(userRouter);
 
 app.use((req, res) => {
