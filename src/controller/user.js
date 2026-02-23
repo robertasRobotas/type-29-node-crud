@@ -9,7 +9,12 @@ export const createNewUser = async (req, res) => {
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(data.password, salt);
 
-  const user = new UserModel({ id: uuid(), ...data, password: hash, cars: [] });
+  const user = new UserModel({
+    id: uuid(),
+    ...data,
+    password: hash,
+    savedBoardgames: [],
+  });
   await user.save();
 
   return res.status(201).json({ user: user });
@@ -40,4 +45,29 @@ export const login = async (req, res) => {
   );
 
   return res.status(200).json({ jwt: token });
+};
+
+export const saveBoardgameToUser = async (req, res) => {
+  const { userId, boardgameId } = req.body;
+
+  const exists = await UserModel.exists({
+    id: userId,
+    savedBoardgames: boardgameId,
+  });
+
+  if (!exists) {
+    await UserModel.updateOne(
+      { id: userId },
+      { $addToSet: { savedBoardgames: boardgameId } },
+    );
+
+    return res.status(200).json({ message: "Saved" });
+  }
+
+  await UserModel.updateOne(
+    { id: userId },
+    { $pull: { savedBoardgames: boardgameId } },
+  );
+
+  return res.status(200).json({ message: "Removed" });
 };
